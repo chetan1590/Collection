@@ -1,7 +1,11 @@
 package com.collection.equalsandhashcode;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EqualsAndHashCode {
 	public static void main(String[] args) {
@@ -13,10 +17,89 @@ public class EqualsAndHashCode {
 		employees.add(new Employee(5, "Manish", "Sharma", 27));
 		employees.add(new Employee(1, "Chetan", "Jain", 32));
 
+		sortByFirstName(employees);
+		sortByLastName(employees);
+		sortById(employees);
+
+		removeDuplicateCustomKeyFromMap();
+	}
+
+	private static void removeDuplicateCustomKeyFromMap() {
+		Map<Employee, Integer> emMap = new HashMap<Employee, Integer>();
+		emMap.put(new Employee(1, "Chetan", "Jain", 32), 1);
+		emMap.put(new Employee(2, "Ankit", "Pathak", 34), 2);
+		emMap.put(new Employee(3, "Mahesh", "Namdev", 30), 3);
+		emMap.put(new Employee(4, "Sandeep", "Vishwakarma", 28), 4);
+		emMap.put(new Employee(5, "Manish", "Sharma", 27), 5);
+		emMap.put(new Employee(1, "Chetan", "Jain", 32), 1);
+
+		System.out.println("Map values..");
+		emMap.keySet().stream().forEach(key -> {
+			System.out.println(key + "-" + emMap.get(key));
+		});
+		System.out.println();
+		System.out.println("Sort map by key");
+		ArrayList<Employee> arrayList = new ArrayList<Employee>(emMap.keySet());
+		Collections.sort(arrayList, new Comparator<Employee>() {
+
+			@Override
+			public int compare(Employee arg0, Employee arg1) {
+				return arg0.getId() - arg1.getId();
+			}
+		});
+		arrayList.stream().forEach(key -> {
+			System.out.println(key + "-" + emMap.get(key));
+		});
+		
+		
+		System.out.println();
+		System.out.println("Sort map by value");
+		
+	}
+
+	private static void sortByFirstName(List<Employee> employees) {
+		System.out.println("Sorting by First name...");
+		Collections.sort(employees, new Comparator<Employee>() {
+			@Override
+			public int compare(Employee arg0, Employee arg1) {
+				return arg0.getFname().compareTo(arg1.getFname());
+			}
+		});
+
 		employees.forEach(employee -> {
 			System.out.println(employee);
 		});
+		System.out.println();
+	}
 
+	private static void sortByLastName(List<Employee> employees) {
+		System.out.println("Sorting by Last name...");
+		Collections.sort(employees, new Comparator<Employee>() {
+			@Override
+			public int compare(Employee arg0, Employee arg1) {
+				return arg0.getLname().compareTo(arg1.getLname());
+			}
+		});
+
+		employees.forEach(employee -> {
+			System.out.println(employee);
+		});
+		System.out.println();
+	}
+
+	private static void sortById(List<Employee> employees) {
+		System.out.println("Sorting by Id...");
+		Collections.sort(employees, new Comparator<Employee>() {
+			@Override
+			public int compare(Employee arg0, Employee arg1) {
+				return arg0.getId() - arg1.getId();
+			}
+		});
+
+		employees.forEach(employee -> {
+			System.out.println(employee);
+		});
+		System.out.println();
 	}
 }
 
