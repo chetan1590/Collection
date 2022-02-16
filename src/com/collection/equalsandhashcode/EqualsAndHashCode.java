@@ -50,11 +50,10 @@ public class EqualsAndHashCode {
 		arrayList.stream().forEach(key -> {
 			System.out.println(key + "-" + emMap.get(key));
 		});
-		
-		
+
 		System.out.println();
 		System.out.println("Sort map by value");
-		
+
 	}
 
 	private static void sortByFirstName(List<Employee> employees) {
